@@ -1,474 +1,1336 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Srinivas Devalla — Portfolio</title>
-  <meta name="description" content="Srinivas Devalla — AI/ML enthusiast, software developer. Projects, internships, skills and contact." />
+  <title>Srinivas Devalla — AI/ML Engineer & Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Srinivas Devalla — B.Tech in AI & ML at Anurag University. Machine Learning, Python, Java, Spring Boot, Data Structures, and Creative Web Engineering." />
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style> :root{--accent:#0f172a} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial} </style>
+
+  <!-- Three.js CDN for interactive 3D WebGL Experience -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- GSAP & ScrollTrigger for Award-Caliber Motion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+              950: '#082f49'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Scroll Progress Indicator adhering to Modern Web Guidance */
+    #scrollProgress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1, #a855f7);
+      z-index: 100;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @supports ((animation-timeline: scroll())) {
+        @keyframes grow-scroll-progress {
+          from { transform: scaleX(0); }
+          to { transform: scaleX(1); }
+        }
+        #scrollProgress {
+          animation: grow-scroll-progress auto linear;
+          animation-timeline: scroll();
+        }
+      }
+    }
+
+    /* Ambient Glassmorphism & Gradient Glow */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.08), 0 8px 10px -6px rgba(14, 165, 233, 0.04);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    /* Glowing canvas background */
+    #heroCanvasContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    /* Badge & Tag Pill Hover */
+    .tech-pill {
+      transition: all 0.2s ease;
+    }
+    .tech-pill:hover {
+      background-color: #0284c7;
+      color: #ffffff;
+      transform: scale(1.04);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
-  <header class="bg-white/90 backdrop-blur sticky top-0 z-40 shadow-sm">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold">SD</div>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-sky-500 selection:text-white relative overflow-x-hidden">
+
+  <!-- Decorative Scroll Progress (Purely decorative visual element, aria-hidden per accessibility guidance) -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/80 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md group-hover:scale-105 transition-transform">
+          SD
+        </div>
         <div>
-          <div class="text-lg font-semibold">Srinivas Devalla</div>
-          <div class="text-sm text-gray-500">AI/ML Enthusiast · Software Developer</div>
+          <div class="font-bold text-base text-slate-900 group-hover:text-sky-600 transition-colors tracking-tight">Srinivas Devalla</div>
+          <div class="text-xs text-slate-500 font-medium flex items-center gap-1.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>AI & ML Engineer · Anurag Univ</span>
+          </div>
         </div>
       </a>
-      <nav class="hidden md:flex gap-6 items-center text-sm">
-        <a href="#about" class="hover:text-sky-600">About</a>
-        <a href="#experience" class="hover:text-sky-600">Experience</a>
-        <a href="#projects" class="hover:text-sky-600">Projects</a>
-        <a href="#skills" class="hover:text-sky-600">Skills</a>
-        <a href="roadmap.html" class="inline-flex items-center gap-1.5 text-sky-700 font-semibold hover:text-sky-800 bg-sky-50 px-3 py-1 rounded-full border border-sky-200 transition-colors">
-          <span>🚀 3D Web Roadmap</span>
-          <span class="text-[10px] bg-sky-600 text-white font-bold px-1.5 py-0.5 rounded-full">New</span>
-        </a>
-        <a href="#contact" class="bg-sky-600 text-white px-4 py-2 rounded-md hover:opacity-95">Contact</a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <a href="#about" class="hover:text-sky-600 transition-colors">About</a>
+        <a href="#experience" class="hover:text-sky-600 transition-colors">Experience</a>
+        <a href="#projects" class="hover:text-sky-600 transition-colors">Projects</a>
+        <a href="#skills" class="hover:text-sky-600 transition-colors">Skills</a>
+        <a href="#achievements" class="hover:text-sky-600 transition-colors">Achievements</a>
+        <a href="#education" class="hover:text-sky-600 transition-colors">Education</a>
       </nav>
-      <button id="mobileBtn" class="md:hidden p-2 rounded-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+
+      <div class="flex items-center gap-3">
+        <a href="./resume.pdf" target="_blank" rel="noopener" download class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100 transition-colors">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <span>Resume</span>
+        </a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-sky-600 text-white text-xs font-semibold hover:bg-sky-500 shadow-sm shadow-sky-600/30 transition-all hover:shadow-md">
+          Get in Touch
+        </a>
+        <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 bg-white/95 px-4 py-4 space-y-3 text-sm font-semibold text-slate-700">
+      <a href="#about" class="block hover:text-sky-600">About</a>
+      <a href="#experience" class="block hover:text-sky-600">Experience</a>
+      <a href="#projects" class="block hover:text-sky-600">Projects</a>
+      <a href="#skills" class="block hover:text-sky-600">Skills</a>
+      <a href="#achievements" class="block hover:text-sky-600">Achievements</a>
+      <a href="#education" class="block hover:text-sky-600">Education</a>
+      <a href="./resume.pdf" target="_blank" rel="noopener" download class="block text-sky-600">Download Resume (PDF)</a>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-12">
-    <section class="grid md:grid-cols-3 gap-8 items-start">
-      <div class="md:col-span-2">
-        <h1 class="text-4xl font-extrabold leading-tight">Srinivas Devalla — <span class="text-sky-600">AI/ML Enthusiast</span> & Software Developer</h1>
-        <p class="mt-4 text-gray-700">Currently pursuing a B.Tech in Artificial Intelligence & Machine Learning at Anurag University. Skilled in Python, Java, C, Data Structures & Algorithms, and web development. Experienced in data analysis, building REST APIs, and working with frameworks like Spring Boot and tools like Pandas and SQL.</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="#contact" class="bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-500 transition-colors">Get in touch</a>
-          <a href="#experience" class="border border-sky-600 text-sky-600 px-4 py-2 rounded-md hover:bg-sky-50 transition-colors">View internships</a>
-          <a href="./resume.pdf" target="_blank" rel="noopener" download class="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors">Download Resume</a>
-          <a href="roadmap.html" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-sky-600 to-indigo-600 text-white px-4 py-2 rounded-md font-medium hover:opacity-95 shadow-sm transition-opacity">
-            <span>🚀 3D Web Roadmap</span>
+  <!-- Hero Section with Interactive 3D WebGL Canvas -->
+  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-sky-50/70 via-white to-slate-50 border-b border-slate-200">
+    
+    <!-- Three.js 3D Interactive Canvas -->
+    <div id="heroCanvasContainer">
+      <canvas id="threeHeroCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+    </div>
+
+    <!-- 3D Interactive Hint Pill -->
+    <div class="absolute top-6 right-6 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-600 shadow-xs">
+      <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+      <span>Interactive 3D WebGL · Drag or move mouse</span>
+    </div>
+
+    <!-- Hero Content Overlay (z-10) -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-20 pointer-events-none">
+      <div class="max-w-3xl pointer-events-auto">
+
+        <!-- Status Tag -->
+        <div class="hero-reveal inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur border border-sky-200 text-sky-800 text-xs font-semibold uppercase tracking-wider mb-5 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>B.Tech in Artificial Intelligence & Machine Learning</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-reveal text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+          Engineering Intelligent Systems & <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600">Scalable Software</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="hero-reveal text-base sm:text-xl text-slate-700 mt-5 leading-relaxed font-normal">
+          Hello, I'm <strong class="font-bold text-slate-900">Srinivas Devalla</strong>. A passionate AI/ML developer at Anurag University with expertise in Python, Data Structures & Algorithms, Java, Machine Learning, Spring Boot, and modern web applications.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-reveal mt-8 flex flex-wrap gap-3 items-center">
+          <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-sky-600 text-white font-semibold text-sm hover:bg-sky-500 shadow-md shadow-sky-600/25 transition-all hover:scale-105">
+            <span>Explore Projects</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+          <a href="./resume.pdf" target="_blank" rel="noopener" download class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/90 backdrop-blur border border-slate-300 text-slate-800 font-semibold text-sm hover:bg-slate-100 transition-all shadow-xs">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <span>Download Resume</span>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-all shadow-xs">
+            <span>Contact Me</span>
           </a>
         </div>
 
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-white p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold">Contact</h3>
-            <p class="text-sm text-gray-600 mt-2">Hyderabad, Telangana, India</p>
-<p class="text-sm text-gray-600">Permanent Address: Piduguralla, Andhra Pradesh</p>
-            <p class="text-sm text-gray-600">devallasrinivas14@gmail.com</p>
-            <p class="text-sm text-gray-600">+91 81256-78184</p>
-            <p class="text-sm text-gray-600">GitHub: <a href="https://github.com/Srinivas14aiml" class="text-sky-600 underline">Srinivas14aiml</a></p>
-            <p class="text-sm text-gray-600">LinkedIn: <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" class="text-sky-600 underline">srinivas-devalla</a></p>
-            <p class="text-sm text-gray-600">LinkedIn followers: <span class="font-semibold">6,000</span></p>
-          </div>
-
-          <div class="bg-white p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold">Top Skills</h3>
-            <ul class="mt-2 text-sm text-gray-700 space-y-1">
-              <li>Data Structures & Algorithms</li>
-              <li>Python, Java, C, SQL</li>
-              <li>Python Pandas, Data Analysis</li>
-              <li>Spring Boot, REST APIs</li>
-              <li>Web Design & Full‑stack development</li>
-            </ul>
-          </div>
+        <!-- Social Quick Links & Proof Points -->
+        <div class="hero-reveal mt-10 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-6 text-xs text-slate-600">
+          <a href="https://github.com/Srinivas14aiml" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-600 transition-colors font-medium">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub: Srinivas14aiml</span>
+          </a>
+          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-600 transition-colors font-medium">
+            <svg class="w-4 h-4 text-sky-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn: <strong>6,000+</strong> Followers</span>
+          </a>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+            <span>Hyderabad, Telangana, India</span>
+          </span>
         </div>
-      </div>
-
-      <aside class="bg-white p-4 rounded-xl shadow-sm">
-        <div class="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center">
-          <!-- If you want to use a real photo, replace src with a hosted image URL or upload one -->
-          <div class="text-center">
-            <div class="w-24 h-24 rounded-full bg-sky-500 text-white flex items-center justify-center text-xl font-bold mx-auto">SD</div>
-            <div class="mt-3 text-sm text-gray-700 font-semibold">Srinivas Devalla</div>
-            <div class="text-xs text-gray-500">B.Tech — AI & ML, Anurag University</div>
-          </div>
-        </div>
-
-        <div class="mt-4 text-sm text-gray-600">
-          <div class="font-semibold">Certifications</div>
-          <ul class="mt-2 space-y-1">
-            <li>🔹 Data Analysis with Python (IBM)</li>
-            <li>🔹 Deloitte — Data Analytics Job Simulation</li>
-            <li>🔹 JPMC — Software Engineering Job Simulation</li>
-            <li>🔹 PWC — Power BI Job Simulation</li>
-            <li>🔹 CodeAlpha — Artificial Intelligence Internship</li>
-            <li>🔹 Edunet Foundation — AI & Green Skills Internship</li>
-            <li>🔹 EduSkills — AI/ML & Cloud Programs</li>
-            <li>🔹 Java Full Stack Development Certification (EduSkills & Anurag University)</li>
-            <li>🔹 Chandrayaan‑3 MahaQuiz — Certificate of Participation</li>
-            <li>🔹 Infosys Springboard — C Programming</li>
-            <li>🔹 Infosys Springboard — C Programming 101</li>
-            <li>🔹 Infosys Springboard — Pointers in C</li>
-            <li>🔹 Infosys Springboard — Handling Arrays in C</li>
-            <li>🔹 Infosys Springboard — Data Structures & Algorithms</li>
-            <li>🔹 Infosys Springboard — Advanced DSA in Python</li>
-            <li>🔹 Cisco — Introduction to Cybersecurity</li>
-            <li>🔹 IEEE CIS AU SBC — C Compilers Compete (Participation Certificate)</li>
-            <li>🔹 Simplilearn — C Programming Basics</li>
-            <li>🔹 NPTEL (IIT Kharagpur) — Introduction to Machine Learning</li>
-            <li>🔹 Salesforce Trailhead — Agentblazer Champion</li>
-            <li>🔹 Oracle SQL, HackerRank (Java & Python), Front‑End (HTML)</li>
-          </ul>
-          <div class="mt-3 text-sm flex flex-wrap gap-2">
-            <!-- Small badge icons (SVG placeholders) -->
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">🏛️ IIT KGP</span>
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">☁️ Azure</span>
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">⚡ Salesforce</span>
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">💼 Deloitte</span>
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">🏦 JPMC</span>
-            <span class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded text-xs">🔒 Cisco</span>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <section id="experience" class="mt-10 bg-white p-6 rounded-xl shadow-sm">
-      <h2 class="text-2xl font-semibold">Internships & Work Experience</h2>
-
-      <div class="mt-4 space-y-6 text-gray-700">
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">AICTE–Shell–Edunet — Green Skills Internship</div>
-              <div class="text-sm text-gray-500">Feb 2025 — Mar 2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Completed a 4-week virtual internship focused on Artificial Intelligence & Green Skills under the Skills4Future initiative.</li>
-            <li>Developed an NLP‑based chatbot using NLTK, TF‑IDF, Logistic Regression, and Streamlit UI.</li>
-            <li>Implemented JSON-based intent handling and CSV chat history logging.</li>
-            <li>Designed the project to scale with advanced models such as BERT and GPT‑4.</li>
-            <li>Received weekly mentorship and presented project to industry experts.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">EdiGlobe — Data Science Internship</div>
-              <div class="text-sm text-gray-500">Jul 2025 — Aug 2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Worked on data preprocessing, EDA, visualization and model building using Python & ML techniques.</li>
-            <li>Performed analysis on real‑world datasets and delivered insights with strong documentation.</li>
-            <li>Recognized for consistent learning, problem‑solving and professional growth.</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">CodeAlpha — Artificial Intelligence Internship</div>
-              <div class="text-sm text-gray-500">Feb 2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Completed an AI internship developing a multilingual Language Translation Tool using Python.</li>
-            <li>Worked with NLP libraries (googletrans, deep-translator) and implemented real-time translation.</li>
-            <li>Gained experience in NLP workflows, API usage, and project development.</li>
-            <li>Received a strong Letter of Recommendation (LOR) for analytical skills and adaptability.</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">Deloitte — Data Analytics Job Simulation</div>
-              <div class="text-sm text-gray-500">Jan 2025 — Feb 2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Conducted data analysis and applied forensic techniques to extract meaningful insights.</li>
-            <li>Utilized Power BI and data visualization tools to interpret complex datasets.</li>
-            <li>Gained hands-on experience in fraud detection and risk assessment using analytical methods.</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">JPMC (J.P. Morgan Chase & Co.) — Software Engineering Job Simulation</div>
-              <div class="text-sm text-gray-500">Jan 2025 — Feb 2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Set up and configured a full‑stack project using Spring Boot and React.js.</li>
-            <li>Integrated Apache Kafka for real‑time data streaming between services.</li>
-            <li>Implemented H2 Database for in‑memory storage and rapid development.</li>
-            <li>Developed and tested REST APIs to ensure smooth microservice communication.</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-semibold">VisionAVA 2K25 — National Hackathon (Top Performer)</div>
-              <div class="text-sm text-gray-500">2025</div>
-            </div>
-          </div>
-          <ul class="mt-2 list-disc list-inside text-sm">
-            <li>Developed an AI chatbot for academic assistance using generative AI models.</li>
-            <li>Trained the chatbot using internal documents to provide accurate course and college information.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="achievements" class="mt-10">
-      <h2 class="text-2xl font-semibold">Achievements & Highlights</h2>
-      <p class="text-gray-600 mt-2 text-sm">Recent accomplishments, hackathons, internships and certified milestones pulled from my LinkedIn posts.</p>
-
-      <div class="mt-4 grid md:grid-cols-2 gap-4">
-        <article class="bg-white p-4 rounded-lg shadow-sm border border-yellow-300">
-          <h3 class="font-semibold text-yellow-700">Competitive Programming — Major Milestones</h3>
-          <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
-            <li>⭐ Solved <strong>100+ LeetCode problems</strong></li>
-            <li>⭐ Achieved <strong>HackerRank 5‑Star Rating in Python</strong></li>
-            <li>⭐ Solved <strong>75+ HackerRank coding challenges</strong></li>
-          </ul>
-          <p class="text-sm text-gray-600 mt-2">Demonstrates strong problem‑solving, DSA mastery, and consistent competitive programming practice.</p>
-        </article>
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">EdiGlobe — Data Science Internship</h3>
-          <p class="text-sm text-gray-600 mt-1">Jul 2025 — Aug 2025: Performed data preprocessing, EDA, visualization, and built ML models on real datasets. Recognized for strong problem-solving and professional growth.</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">InnoQuest Hackathon — ClinicOps (Azure)</h3>
-          <p class="text-sm text-gray-600 mt-1">Built <strong>ClinicOps</strong>, an AI-powered health desk assistant for Government/NGO clinics using Azure AI — focused on patient handling, triage and task automation.</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">VisionAVA 2K25 — Top Performer</h3>
-          <p class="text-sm text-gray-600 mt-1">National 24‑hour hackathon — awarded Top Performer for a Gen‑AI academic assistance solution (₹5,000 prize).</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Avinya 2K25 — Organizing Committee</h3>
-          <p class="text-sm text-gray-600 mt-1">Core member of the organizing team for a national-level 24‑hour hackathon and AI bootcamp at Anurag University (Sep 18–19, 2025).</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">NPTEL — Introduction to Machine Learning (IIT Kharagpur)</h3>
-          <p class="text-sm text-gray-600 mt-1">Jul–Sep 2025: Completed the ML certification; strong assignment and exam performance (assignment score 22.92/25).</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Salesforce Trailhead — Agentblazer Champion</h3>
-          <p class="text-sm text-gray-600 mt-1">Earned the Agentblazer Champion badge for Agentforce, reasoning engines, topics and Einstein Trust Layer concepts.</p>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">CodeAlpha — Language Translation Tool & LOR</h3>
-          <p class="text-sm text-gray-600 mt-1">Developed a Python-based real-time language translation tool during the Feb 2025 internship. Received a strong Letter of Recommendation appreciating:</p>
-          <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
-            <li>Strong analytical and problem‑solving skills</li>
-            <li>Quick adaptation to emerging technologies</li>
-            <li>Collaborative spirit and dedication to learning</li>
-          </ul>
-          <p class="text-sm text-gray-600 mt-2">This internship and LOR marked a major milestone in strengthening NLP, Python, and project development skills.</p>
-          <a href="https://github.com/Srinivas14aiml/CodeAlpha_LanguageTranslationTool" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block ml-3">View LinkedIn post</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">AICTE–Shell–Edunet — Green Skills Internship</h3>
-          <p class="text-sm text-gray-600 mt-1">24 Feb – 24 Mar 2025: Successfully completed a 4‑week virtual internship on Artificial Intelligence & Data Analytics with a focus on Green Skills under the Skills4Future initiative.</p>
-          <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
-            <li>Developed an NLP‑based chatbot using NLTK, TF‑IDF and Logistic Regression.</li>
-            <li>Built a full Streamlit UI for interactive chatbot responses.</li>
-            <li>Used JSON for intents and CSV for chat history storage.</li>
-            <li>Designed the project to scale with modern models like BERT and GPT‑4.</li>
-            <li>Received weekly mentorship and presented the final project to industry experts.</li>
-          </ul>
-          <a href="https://lnkd.in/g9MBBMnS" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-          <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block ml-3">View LinkedIn post</a>
-        </article>
 
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="projects" class="mt-10">
-      <h2 class="text-2xl font-semibold">Projects & Highlights</h2>
-      <p class="text-gray-600 mt-2 text-sm">A collection of my GitHub projects showcasing AI/ML, full‑stack, NLP, and web development work.</p>
+  <!-- Interactive Stats Counter Section (GSAP Animated Count-up) -->
+  <section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 stat-box">
+          <div class="text-3xl sm:text-4xl font-extrabold text-sky-600 font-mono flex items-center justify-center gap-1">
+            <span class="counter" data-target="100">0</span><span>+</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-700 uppercase tracking-wider mt-1">LeetCode Solved</div>
+          <p class="text-[11px] text-slate-500 mt-0.5">DSA & Problem Solving</p>
+        </div>
 
-      <div class="mt-4 grid md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 stat-box">
+          <div class="text-3xl sm:text-4xl font-extrabold text-indigo-600 font-mono flex items-center justify-center gap-1">
+            <span class="counter" data-target="5">0</span><span>★</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-700 uppercase tracking-wider mt-1">HackerRank Rating</div>
+          <p class="text-[11px] text-slate-500 mt-0.5">Gold Python Badge · 75+ challenges</p>
+        </div>
 
-        <article class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white p-5 rounded-xl shadow-md md:col-span-2 border border-indigo-800/60 relative overflow-hidden">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-xs font-mono font-semibold mb-2 border border-sky-400/30">
-                <span>✨ Featured Guide & Interactive WebGL</span>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 stat-box">
+          <div class="text-3xl sm:text-4xl font-extrabold text-purple-600 font-mono flex items-center justify-center gap-1">
+            <span class="counter" data-target="6000">0</span><span>+</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-700 uppercase tracking-wider mt-1">LinkedIn Network</div>
+          <p class="text-[11px] text-slate-500 mt-0.5">Tech Community & Engagements</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 stat-box">
+          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600 font-mono flex items-center justify-center gap-1">
+            <span class="counter" data-target="8">0</span><span>.0</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-700 uppercase tracking-wider mt-1">B.Tech CGPA</div>
+          <p class="text-[11px] text-slate-500 mt-0.5">Anurag University (AI & ML)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+    <!-- About Section -->
+    <section id="about" class="scroll-mt-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Column: Biography & Top Skills -->
+        <div class="lg:col-span-8 space-y-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold uppercase tracking-wider mb-2">
+              <span>About Me</span>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+              Passionate About Turning Data & Algorithms into Impactful Solutions
+            </h2>
+          </div>
+
+          <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+            I am an undergraduate student pursuing a B.Tech in Artificial Intelligence & Machine Learning at Anurag University (2023–2027). With a strong foundation in Data Structures, Algorithms, Python, and Java, I love exploring the intersection of intelligent predictive modeling and modern full-stack web architectures.
+          </p>
+
+          <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+            Over the past few years, I have completed internships in NLP and Data Science, participated in national hackathons (VisionAVA 2K25 Top Performer, InnoQuest Azure AI), and completed job simulations with industry leaders such as Deloitte and J.P. Morgan Chase.
+          </p>
+
+          <!-- Top Competencies Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <div class="text-sky-600 font-bold text-sm mb-1 flex items-center gap-2">
+                <span>🤖</span> <span>AI, Machine Learning & NLP</span>
               </div>
-              <h3 class="text-xl font-bold text-white">The 3D Web Development Roadmap</h3>
-              <p class="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                A complete practical roadmap from beginner to award-worthy 3D websites. Features Three.js, React Three Fiber, GSAP, Blender, GLSL shaders, an interactive 8-level milestone tracker, and a live Three.js 3D WebGL hero showcase.
+              <p class="text-xs text-slate-600 leading-relaxed">
+                NLTK, Scikit-learn, TF-IDF, Logistic Regression, model evaluation, pandas data preprocessing, exploratory data analysis, and conversational AI chatbots.
               </p>
             </div>
-            <a href="roadmap.html" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-semibold text-sm transition-all shadow-md shrink-0">
-              <span>Explore Interactive 3D Roadmap →</span>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <div class="text-indigo-600 font-bold text-sm mb-1 flex items-center gap-2">
+                <span>💻</span> <span>Core Software Engineering</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Competitive programming, Data Structures & Algorithms, Object-Oriented Programming (Java, C, Python), and modular MVC architecture.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <div class="text-purple-600 font-bold text-sm mb-1 flex items-center gap-2">
+                <span>⚡</span> <span>Full-Stack & Backend APIs</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Spring Boot, REST APIs, H2 Database, Apache Kafka streaming, Node.js, Express, React, HTML5, CSS3, and Tailwind CSS.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <div class="text-emerald-600 font-bold text-sm mb-1 flex items-center gap-2">
+                <span>📊</span> <span>Data Analysis & Cloud</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Power BI job simulations, SQL queries, relational database modeling, Azure AI services, and Git collaborative workflows.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Column: Profile Summary Card -->
+        <div class="lg:col-span-4">
+          <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+            
+            <div class="text-center">
+              <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-purple-600 text-white flex items-center justify-center text-2xl font-black mx-auto shadow-md">
+                SD
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mt-3">Srinivas Devalla</h3>
+              <p class="text-xs text-slate-500 font-medium">B.Tech — AI & ML, Anurag University</p>
+              <div class="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>Open to Internships & Roles</span>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-4 space-y-3 text-xs text-slate-700">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">Degree</span>
+                <span class="font-semibold text-slate-900">B.Tech (AI & ML)</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">Timeline</span>
+                <span class="font-semibold text-slate-900">2023 — 2027</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">Academic Score</span>
+                <span class="font-semibold text-sky-600">8.0 CGPA</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">Location</span>
+                <span class="font-semibold text-slate-900">Hyderabad / Piduguralla</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">Languages</span>
+                <span class="font-semibold text-slate-900">English, Telugu, Hindi</span>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-4">
+              <a href="#contact" class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow-sm">
+                <span>Send a Message</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience & Internships Section -->
+    <section id="experience" class="scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-2">
+            <span>Career Path</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Internships & Job Simulations</h2>
+        </div>
+        <p class="text-xs text-slate-500 font-mono">Hands-on corporate & technical experience</p>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- Experience Card 1 -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-mono font-bold text-sky-600 uppercase">AICTE · Shell · Edunet Foundation</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-0.5">Green Skills & Artificial Intelligence Internship</h3>
+            </div>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700 w-fit">Feb 2025 — Mar 2025</span>
+          </div>
+          <ul class="mt-4 text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside">
+            <li>Completed an intensive 4-week virtual internship on Artificial Intelligence & Green Skills under the national Skills4Future initiative.</li>
+            <li>Architected and developed an NLP-based chatbot using Python, NLTK, TF-IDF vectorization, and Logistic Regression with an interactive Streamlit UI.</li>
+            <li>Designed JSON-based intent handling structures and automated CSV chat history logging.</li>
+            <li>Engineered the application pipeline to scale seamlessly with modern LLMs like BERT and GPT-4.</li>
+            <li>Presented the final system to industry mentors and was commended for clean execution.</li>
+          </ul>
+        </article>
+
+        <!-- Experience Card 2 -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-mono font-bold text-indigo-600 uppercase">EdiGlobe</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-0.5">Data Science Internship</h3>
+            </div>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700 w-fit">Jul 2025 — Aug 2025</span>
+          </div>
+          <ul class="mt-4 text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside">
+            <li>Conducted extensive exploratory data analysis (EDA), data cleaning, feature engineering, and statistical modeling with Python and Pandas.</li>
+            <li>Developed machine learning algorithms to identify key data trends and delivered actionable visual insight reports.</li>
+            <li>Awarded official completion recognition for consistent problem-solving and rapid learning.</li>
+          </ul>
+        </article>
+
+        <!-- Experience Card 3 -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-mono font-bold text-purple-600 uppercase">CodeAlpha</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-0.5">Artificial Intelligence Internship (with LOR)</h3>
+            </div>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700 w-fit">Feb 2025</span>
+          </div>
+          <ul class="mt-4 text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside">
+            <li>Built a Python-based real-time multilingual text translation application integrating translation APIs and NLP workflows.</li>
+            <li>Received an official Letter of Recommendation (LOR) praising analytical rigor, adaptability to emerging technologies, and collaborative spirit.</li>
+          </ul>
+        </article>
+
+        <!-- Experience Card 4 & 5 Grid (Job Simulations) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <article class="glass-card p-5 rounded-2xl border border-slate-200">
+            <span class="text-xs font-mono font-bold text-amber-600 uppercase block mb-1">Deloitte</span>
+            <h3 class="text-base font-bold text-slate-900">Data Analytics Job Simulation</h3>
+            <span class="text-[11px] text-slate-500 font-mono block mb-3">Jan 2025 — Feb 2025</span>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Applied forensic data analysis and fraud detection techniques using Power BI and statistical modeling to discover patterns in large enterprise datasets.
+            </p>
+          </article>
+
+          <article class="glass-card p-5 rounded-2xl border border-slate-200">
+            <span class="text-xs font-mono font-bold text-blue-600 uppercase block mb-1">JPMorgan Chase & Co.</span>
+            <h3 class="text-base font-bold text-slate-900">Software Engineering Job Simulation</h3>
+            <span class="text-[11px] text-slate-500 font-mono block mb-3">Jan 2025 — Feb 2025</span>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Implemented a full-stack financial microservice using Spring Boot, React, Apache Kafka for live streaming events, and H2 in-memory databases.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Projects Section with Interactive Category Filter & Live Search -->
+    <section id="projects" class="scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-semibold uppercase tracking-wider mb-2">
+            <span>Code & Deployments</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Featured Projects & Repositories</h2>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs font-semibold" id="projectFilterGroup">
+          <button class="filter-btn active px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs" data-filter="all">All</button>
+          <button class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900" data-filter="ai">AI & NLP</button>
+          <button class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900" data-filter="web">Full-Stack</button>
+          <button class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900" data-filter="data">Data & ML</button>
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="mb-6">
+        <div class="relative max-w-md">
+          <input 
+            id="projectSearchInput" 
+            type="text" 
+            placeholder="Search projects by keyword (e.g. Chatbot, NLP, React, Node)..." 
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-xs"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0118 0z"></path></svg>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectsGrid">
+
+        <!-- Project 1 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="ai">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-sky-600 font-bold uppercase">AI & NLP</span>
+              <span>Python · NLTK</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">CodeAlpha Language Translation Tool</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              A multilingual real-time text translator built using Python, deep-translator, and NLP preprocessing algorithms.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-mono">NLP Tool</span>
+            <a href="https://github.com/Srinivas14aiml/CodeAlpha_LanguageTranslationTool" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
             </a>
           </div>
         </article>
 
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">CodeAlpha — Language Translation Tool</h3>
-          <p class="text-sm text-gray-600 mt-1">A Python-based multilingual text translation tool using NLP techniques.</p>
-          <a href="https://github.com/Srinivas14aiml/CodeAlpha_LanguageTranslationTool" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">WPM Internal Project</h3>
-          <p class="text-sm text-gray-600 mt-1">Typing speed analyzer that measures words per minute with real‑time feedback.</p>
-          <a href="https://github.com/Srinivas14aiml/wpm_internal_1" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">ChatBot using NLP (AICTE Cycle‑4)</h3>
-          <p class="text-sm text-gray-600 mt-1">An NLP-powered chatbot built for academic Q&A automation.</p>
-          <a href="https://github.com/Srinivas14aiml/ChatBot_using_NLP_AICTE_CYCLE-4" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Bootstrap Web Project</h3>
-          <p class="text-sm text-gray-600 mt-1">Responsive website built using HTML, CSS, and Bootstrap components.</p>
-          <a href="https://github.com/Srinivas14aiml/project_bootstrap" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">MVC Architecture Project</h3>
-          <p class="text-sm text-gray-600 mt-1">A simple Model-View-Controller structured application.</p>
-          <a href="https://github.com/Srinivas14aiml/project_mvc" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Project 1 — Web App</h3>
-          <p class="text-sm text-gray-600 mt-1">A basic web app showcasing frontend fundamentals.</p>
-          <a href="https://github.com/Srinivas14aiml/project_1" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Chatbot for FAQs</h3>
-          <p class="text-sm text-gray-600 mt-1">Automated FAQ chatbot capable of answering institution-related queries.</p>
-          <a href="https://github.com/Srinivas14aiml/Chatbot-for-FAQs" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">ClinicOps Analysis</h3>
-          <p class="text-sm text-gray-600 mt-1">Healthcare operations data analysis using Python and Pandas.</p>
-          <a href="https://github.com/Srinivas14aiml/clinicops_analysis" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="font-semibold">Loc8r — Node.js App</h3>
-          <p class="text-sm text-gray-600 mt-1">A location-based service application built with Node.js and Express.</p>
-          <a href="https://github.com/Srinivas14aiml/loc8r" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm md:col-span-2">
-          <h3 class="font-semibold">Student Chatbot — MEAN Stack</h3>
-          <p class="text-sm text-gray-600 mt-1">A chatbot project developed using Angular, Node.js, Express, and MongoDB.</p>
-          <a href="https://github.com/Srinivas14aiml/student_chatbot_with_mean" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-        <article class="bg-white p-4 rounded-lg shadow-sm md:col-span-2">
-          <h3 class="font-semibold">Forage MIDAS Project</h3>
-          <p class="text-sm text-gray-600 mt-1">A financial data analysis project completed as part of Forage’s MIDAS program.</p>
-          <a href="https://github.com/Srinivas14aiml/forage-midas" target="_blank" class="text-sky-600 underline text-sm mt-2 inline-block">GitHub Repo</a>
-        </article>
-
-      </div>
-    </section>
-
-    <section id="skills" class="mt-10 grid md:grid-cols-3 gap-6">
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <h4 class="font-semibold">Technical Skills</h4>
-        <ul class="mt-3 text-sm text-gray-700 space-y-1">
-          <li>C (Programming Language)</li>
-          <li>Python (Programming Language)</li>
-          <li>Java</li>
-          <li>Machine Learning</li>
-          <li>Data Structures & Algorithms</li>
-          <li>Web Development (React, HTML, CSS)</li>
-          <li>SQL, H2 Database</li>
-          <li>Spring Boot, REST APIs</li>
-        </ul>
-        <div class="mt-3 text-xs text-gray-500">(Skills developed during coursework and internships at Anurag University and partner programs)</div>
-      </div>
-
-      <div class="bg-white p-4 rounded-lg shadow-sm md:col-span-2">
-        <h4 class="font-semibold">Certifications & Tools</h4>
-        <div class="mt-3 text-sm text-gray-700">
-          <ul class="list-disc list-inside">
-            <li>Deloitte — Data Analytics Job Simulation</li>
-            <li>JPMC — Software Engineering Job Simulation</li>
-            <li>PWC — Power BI Job Simulation</li>
-            <li>Data Analysis with Python (IBM)</li>
-            <li>Edunet Foundation — 4 Week Internship in AI</li>
-          </ul>
-        </div>
-        <div class="mt-4 text-sm">
-          <a href="https://www.linkedin.com" target="_blank" class="text-sky-600 underline">Learn more about these skills on LinkedIn</a>
-          <div class="text-xs text-gray-500 mt-1">Discover jobs, people, learning content and conversations about these skills.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="education" class="mt-10 bg-white p-6 rounded-xl shadow-sm">
-      <h2 class="text-2xl font-semibold">Education</h2>
-      <div class="mt-4 text-gray-700">
-        <div class="font-semibold">Anurag University</div>
-        <div class="text-sm text-gray-600">B.Tech in Artificial Intelligence & Machine Learning — Aug 2023 to Apr 2027 · CGPA: 8.0</div>
-        <div class="mt-3 font-semibold">Bhashyam College (Intermediate — BiPC)</div>
-        <div class="text-sm text-gray-600">July 2020 — May 2023</div>
-        <div class="mt-3 font-semibold">Scholars High School & ABC Grammar School — Piduguralla</div>
-        <div class="text-sm text-gray-600">Primary & Secondary education</div>
-      </div>
-    </section>
-
-    <section id="contact" class="mt-10 bg-white p-6 rounded-xl shadow-sm">
-      <h2 class="text-2xl font-semibold">Contact</h2>
-      <p class="mt-2 text-gray-700">Interested in collaborating or hiring? Reach out via email or phone — you can also download my resume.</p>
-
-      <div class="mt-4 grid md:grid-cols-2 gap-4">
-        <div class="p-4 border rounded-md">
-          <div class="font-semibold">Email</div>
-          <div class="text-sm text-gray-600">devallasrinivas14@gmail.com</div>
-          <div class="mt-3 font-semibold">Phone</div>
-          <div class="text-sm text-gray-600">+91 81256-78184</div>
-          <div class="mt-3"><a href="./resume.pdf" target="_blank" rel="noopener" download class="text-sky-600 underline">Download full resume (PDF)</a></div>
-        </div>
-
-        <form id="contactForm" class="p-4 border rounded-md" onsubmit="return false;">
-          <input name="name" placeholder="Your name" required class="w-full p-2 border rounded mt-1" />
-          <input name="email" type="email" placeholder="Your email" required class="w-full p-2 border rounded mt-2" />
-          <textarea name="message" placeholder="Message" rows="4" class="w-full p-2 border rounded mt-2"></textarea>
-          <div class="mt-3 flex gap-2">
-            <button onclick="alert('Thanks — this is a demo. Replace with backend to receive messages.');" class="bg-sky-600 text-white px-3 py-2 rounded">Send</button>
-            <button type="reset" class="border px-3 py-2 rounded">Reset</button>
+        <!-- Project 2 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="ai">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-purple-600 font-bold uppercase">AICTE Cycle-4</span>
+              <span>Python · Streamlit</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Academic Q&A ChatBot using NLP</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Automated chatbot for college queries with TF-IDF, Logistic Regression, intent classification, and chat logging.
+            </p>
           </div>
-        </form>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded font-mono">Streamlit UI</span>
+            <a href="https://github.com/Srinivas14aiml/ChatBot_using_NLP_AICTE_CYCLE-4" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="web">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-indigo-600 font-bold uppercase">Full-Stack MEAN</span>
+              <span>Angular · Node · Mongo</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Student Chatbot with MEAN Stack</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Full-stack conversational application built with Angular frontend, Express backend, and MongoDB database.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-mono">MEAN Stack</span>
+            <a href="https://github.com/Srinivas14aiml/student_chatbot_with_mean" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="data">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-emerald-600 font-bold uppercase">Data Analytics</span>
+              <span>Python · Pandas</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">ClinicOps Healthcare Analysis</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Healthcare operations data analysis exploring patient triage, clinic resource bottlenecks, and scheduling efficiency.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono">Pandas & EDA</span>
+            <a href="https://github.com/Srinivas14aiml/clinicops_analysis" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="web">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-sky-600 font-bold uppercase">Location Services</span>
+              <span>Node.js · Express</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Loc8r — Geo-Location App</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Web application that helps users find nearby places with Wi-Fi, reviews, and interactive maps using Express.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-mono">Express & API</span>
+            <a href="https://github.com/Srinivas14aiml/loc8r" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="web">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-amber-600 font-bold uppercase">Frontend Utility</span>
+              <span>JavaScript ES6</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">WPM Typing Speed Analyzer</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Real-time words-per-minute typing speed tester measuring accuracy, speed, and character keystrokes.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-mono">DOM & Timer</span>
+            <a href="https://github.com/Srinivas14aiml/wpm_internal_1" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 7 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="data">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-purple-600 font-bold uppercase">Financial Modeling</span>
+              <span>Data Analysis</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Forage MIDAS Financial Project</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Financial data analytics and forecasting project completed as part of Forage’s industry MIDAS program.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded font-mono">Financial EDA</span>
+            <a href="https://github.com/Srinivas14aiml/forage-midas" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 8 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="ai">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-indigo-600 font-bold uppercase">AI Assistant</span>
+              <span>Python · NLP</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Institutional FAQ Chatbot</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Automated chatbot trained to respond to institution-related FAQs, course syllabi, and administrative queries.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-mono">NLP Engine</span>
+            <a href="https://github.com/Srinivas14aiml/Chatbot-for-FAQs" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 9 -->
+        <article class="project-card glass-card p-5 rounded-2xl flex flex-col justify-between" data-category="web">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
+              <span class="text-sky-600 font-bold uppercase">Software Architecture</span>
+              <span>Java / Web</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">MVC Architecture Application</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Modular web application demonstrating separation of concerns with Model-View-Controller design patterns.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-mono">Clean Code</span>
+            <a href="https://github.com/Srinivas14aiml/project_mvc" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline flex items-center gap-1">
+              <span>View Code</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <footer class="mt-12 text-center text-sm text-gray-500 pb-12">© <span id="year"></span> Srinivas Devalla — Built with ❤️ · Piduguralla, Andhra Pradesh · <a href="https://github.com/Srinivas14aiml" class="underline">GitHub</a> · <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" class="underline">LinkedIn</a></footer>
+    <!-- Skills & Technology Matrix -->
+    <section id="skills" class="scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-2">
+            <span>Stack & Tools</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Technical Arsenal</h2>
+        </div>
+        <p class="text-xs text-slate-500 font-mono">Continuously expanded & benchmarked</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Programming Languages -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xl">💻</span>
+            <h3 class="font-bold text-base text-slate-900">Languages & Core CS</h3>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Python</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Java</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">C Language</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">SQL</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">JavaScript ES6+</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">HTML5 / CSS3</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-sky-50 text-sky-800 font-semibold border border-sky-200">Data Structures (DSA)</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-sky-50 text-sky-800 font-semibold border border-sky-200">Algorithms</span>
+          </div>
+        </article>
+
+        <!-- AI, ML & Data -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xl">🤖</span>
+            <h3 class="font-bold text-base text-slate-900">AI / ML & Data Science</h3>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Machine Learning</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Natural Language Processing (NLP)</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">NLTK</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">TF-IDF</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Python Pandas</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Exploratory Data Analysis</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200">Power BI</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200">Streamlit</span>
+          </div>
+        </article>
+
+        <!-- Frameworks & Backend -->
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xl">⚡</span>
+            <h3 class="font-bold text-base text-slate-900">Frameworks & Cloud</h3>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Spring Boot</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">REST APIs</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Apache Kafka</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">H2 Database</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">React.js</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Node.js</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-slate-100 font-semibold text-slate-700">Tailwind CSS</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-purple-50 text-purple-800 font-semibold border border-purple-200">Azure AI</span>
+            <span class="tech-pill px-3 py-1.5 rounded-lg bg-purple-50 text-purple-800 font-semibold border border-purple-200">Git & GitHub</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Achievements & Certifications -->
+    <section id="achievements" class="scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold uppercase tracking-wider mb-2">
+            <span>Milestones & Honors</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Achievements & Certifications</h2>
+        </div>
+        <p class="text-xs text-slate-500 font-mono">Recognitions from universities & global platforms</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Major Highlights (7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+
+          <article class="p-5 rounded-2xl bg-amber-50/60 border border-amber-200/80 shadow-xs">
+            <div class="flex items-center gap-2 font-bold text-amber-900 text-base mb-1">
+              <span>⭐</span> <span>Competitive Programming Dominance</span>
+            </div>
+            <ul class="text-xs sm:text-sm text-amber-950 space-y-1.5 list-disc list-inside mt-2">
+              <li>Solved <strong>100+ LeetCode problems</strong> with algorithmic precision.</li>
+              <li>Achieved <strong>HackerRank 5-Star Gold Badge in Python</strong>.</li>
+              <li>Completed <strong>75+ HackerRank coding challenges</strong> across data structures and arrays.</li>
+            </ul>
+          </article>
+
+          <article class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-slate-900 text-sm">VisionAVA 2K25 — Top Performer (Cash Prize ₹5,000)</h3>
+              <span class="text-xs font-mono text-emerald-600 font-semibold">Award Winner</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              National 24-hour hackathon winner for building a Generative-AI academic assistant chatbot utilizing internal college documents.
+            </p>
+          </article>
+
+          <article class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-slate-900 text-sm">InnoQuest Hackathon — ClinicOps (Azure AI)</h3>
+              <span class="text-xs font-mono text-sky-600 font-semibold">Azure AI</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              Engineered an AI-powered triage and patient health desk solution for clinics and public health providers.
+            </p>
+          </article>
+
+          <article class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-slate-900 text-sm">Avinya 2K25 — Organizing Committee Member</h3>
+              <span class="text-xs font-mono text-purple-600 font-semibold">Leadership</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              Core organizing member of Anurag University's premier national-level 24-hour hackathon and AI bootcamp.
+            </p>
+          </article>
+
+          <article class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-slate-900 text-sm">Salesforce Trailhead — Agentblazer Champion</h3>
+              <span class="text-xs font-mono text-blue-600 font-semibold">Salesforce</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              Certified in Agentforce autonomous agents, reasoning engines, and Einstein Trust Layer architectures.
+            </p>
+          </article>
+
+        </div>
+
+        <!-- Comprehensive Certifications List (5 cols) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+          <h3 class="font-bold text-base text-slate-900 mb-3 flex items-center gap-2">
+            <span>📜</span> <span>Verified Certifications</span>
+          </h3>
+          <div class="space-y-2 text-xs text-slate-700 max-h-[420px] overflow-y-auto pr-2">
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Data Analysis with Python</strong> — IBM</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Introduction to Machine Learning</strong> — NPTEL (IIT Kharagpur)</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Data Analytics Job Simulation</strong> — Deloitte</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Software Engineering Job Simulation</strong> — JPMorgan Chase & Co.</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Power BI Job Simulation</strong> — PWC</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>AI & Green Skills Virtual Internship</strong> — Edunet Foundation</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>AI/ML & Cloud Programs</strong> — EduSkills & Anurag Univ</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Java Full Stack Development</strong> — EduSkills</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Advanced DSA in Python</strong> — Infosys Springboard</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Data Structures & Algorithms in C</strong> — Infosys Springboard</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Pointers & Memory in C</strong> — Infosys Springboard</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Introduction to Cybersecurity</strong> — Cisco</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>C Compilers Compete</strong> — IEEE CIS AU SBC</div>
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">🔹 <strong>Oracle SQL & HackerRank Java/Python</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="scroll-mt-24">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-xs font-semibold uppercase tracking-wider mb-2">
+        <span>Education Background</span>
+      </div>
+      <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Academic Journey</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <span class="text-xs font-mono font-bold text-sky-600 uppercase block mb-1">2023 — 2027</span>
+          <h3 class="text-lg font-bold text-slate-900">Anurag University</h3>
+          <p class="text-xs text-slate-600 font-medium mt-1">B.Tech in Artificial Intelligence & Machine Learning</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-500">CGPA</span>
+            <span class="font-bold text-sky-600 text-sm">8.0 / 10.0</span>
+          </div>
+        </article>
+
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <span class="text-xs font-mono font-bold text-indigo-600 uppercase block mb-1">2020 — 2023</span>
+          <h3 class="text-lg font-bold text-slate-900">Bhashyam College</h3>
+          <p class="text-xs text-slate-600 font-medium mt-1">Intermediate Education (BiPC)</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            Biological & Physical Sciences foundation with analytical focus.
+          </div>
+        </article>
+
+        <article class="glass-card p-6 rounded-2xl border border-slate-200">
+          <span class="text-xs font-mono font-bold text-purple-600 uppercase block mb-1">Primary & Secondary</span>
+          <h3 class="text-lg font-bold text-slate-900">Scholars High School</h3>
+          <p class="text-xs text-slate-600 font-medium mt-1">ABC Grammar School — Piduguralla, AP</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            Strong foundation in mathematics, logic, and computational reasoning.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Contact & Connect Section -->
+    <section id="contact" class="scroll-mt-24">
+      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 text-white p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-6 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-semibold uppercase tracking-wider border border-sky-400/30">
+              <span>Let's Build Together</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Ready to Collaborate or Discuss New Opportunities?
+            </h2>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Whether you have an internship opening, software engineering project, data science challenge, or just want to connect — my inbox is always open!
+            </p>
+
+            <div class="pt-4 space-y-3 text-xs sm:text-sm text-slate-300 font-mono">
+              <div class="flex items-center gap-3">
+                <span class="text-sky-400">📧 Email:</span>
+                <a href="mailto:devallasrinivas14@gmail.com" class="hover:text-white underline">devallasrinivas14@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-emerald-400">📱 Phone:</span>
+                <span>+91 81256-78184</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-indigo-400">📍 Location:</span>
+                <span>Hyderabad, Telangana / Piduguralla, AP</span>
+              </div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="./resume.pdf" target="_blank" rel="noopener" download class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-colors shadow-sm">
+                <span>Download Resume (PDF)</span>
+              </a>
+              <button id="copyEmailBtn" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition-colors">
+                <span>Copy Email Address</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Interactive Message Card -->
+          <div class="lg:col-span-6 bg-slate-800/90 backdrop-blur p-6 rounded-2xl border border-slate-700/80">
+            <h3 class="text-base font-bold text-white mb-2">Send a Direct Note</h3>
+            <p class="text-xs text-slate-400 mb-4">Clicking send opens your email client directly addressed to Srinivas.</p>
+
+            <form id="contactForm" class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Your Name</label>
+                <input id="formName" type="text" placeholder="John Doe" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500" required />
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Subject</label>
+                <input id="formSubject" type="text" placeholder="Project Collaboration / Opportunity" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500" required />
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Message</label>
+                <textarea id="formMessage" rows="3" placeholder="Hi Srinivas, I came across your portfolio..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500" required></textarea>
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs transition-colors shadow-md">
+                Launch Email Client 🚀
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
+  <!-- Footer -->
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-900">Srinivas Devalla</span>
+        <span>·</span>
+        <span>© <span id="currentYear"></span> All Rights Reserved</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/Srinivas14aiml" target="_blank" rel="noopener noreferrer" class="hover:text-sky-600 transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/in/srinivas-devalla-22305328b/" target="_blank" rel="noopener noreferrer" class="hover:text-sky-600 transition-colors">LinkedIn</a>
+        <a href="mailto:devallasrinivas14@gmail.com" class="hover:text-sky-600 transition-colors">Email</a>
+        <a href="#" class="text-sky-600 hover:underline">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: 3D WebGL Canvas, GSAP Motion, Filters & Interactions -->
   <script>
-    const mobileBtn = document.getElementById('mobileBtn');
-    mobileBtn.addEventListener('click', ()=>{
-      const nav = document.querySelector('header nav');
-      if(nav.style.display === 'flex') nav.style.display = '';
-      else nav.style.display = 'flex';
+    /* ==========================================================
+       1. Interactive Three.js 3D WebGL Hero Experience
+       ========================================================== */
+    (function initThreeBackground() {
+      const container = document.getElementById('heroCanvasContainer');
+      const canvas = document.getElementById('threeHeroCanvas');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 5;
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // 3D AI/ML Node Constellation Group
+      const mainGroup = new THREE.Group();
+      scene.add(mainGroup);
+
+      // Inner Icosahedron (Geometric Crystal Core)
+      const coreGeom = new THREE.IcosahedronGeometry(1.6, 1);
+      const coreMat = new THREE.MeshNormalMaterial({
+        wireframe: true,
+        transparent: true,
+        opacity: 0.35
+      });
+      const coreMesh = new THREE.Mesh(coreGeom, coreMat);
+      mainGroup.add(coreMesh);
+
+      // Outer Torus Ring
+      const ringGeom = new THREE.TorusGeometry(2.3, 0.04, 16, 100);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4
+      });
+      const ringMesh = new THREE.Mesh(ringGeom, ringMat);
+      ringMesh.rotation.x = Math.PI / 3;
+      mainGroup.add(ringMesh);
+
+      // Second inclined ring
+      const ringGeom2 = new THREE.TorusGeometry(2.6, 0.03, 16, 100);
+      const ringMat2 = new THREE.MeshBasicMaterial({
+        color: 0x818cf8,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.25
+      });
+      const ringMesh2 = new THREE.Mesh(ringGeom2, ringMat2);
+      ringMesh2.rotation.y = Math.PI / 4;
+      mainGroup.add(ringMesh2);
+
+      // 3D Particle Cloud (Starfield / Nodes)
+      const particleCount = 200;
+      const particleGeom = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 12;
+        positions[i + 1] = (Math.random() - 0.5) * 12;
+        positions[i + 2] = (Math.random() - 0.5) * 8;
+      }
+      particleGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x0284c7,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.6
+      });
+      const particleSystem = new THREE.Points(particleGeom, particleMat);
+      scene.add(particleSystem);
+
+      // Mouse & Drag Interaction with Inertia
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      let isDragging = false;
+      let prevMousePos = { x: 0, y: 0 };
+
+      window.addEventListener('mousemove', (e) => {
+        const xRatio = (e.clientX / window.innerWidth) * 2 - 1;
+        const yRatio = -(e.clientY / window.innerHeight) * 2 + 1;
+        mouseX = xRatio * 0.5;
+        mouseY = yRatio * 0.5;
+
+        if (isDragging) {
+          const deltaX = e.clientX - prevMousePos.x;
+          const deltaY = e.clientY - prevMousePos.y;
+          targetX += deltaY * 0.005;
+          targetY += deltaX * 0.005;
+          prevMousePos = { x: e.clientX, y: e.clientY };
+        }
+      });
+
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        prevMousePos = { x: e.clientX, y: e.clientY };
+      });
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Responsive Resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Animation Loop (60 FPS composited)
+      function renderFrame() {
+        requestAnimationFrame(renderFrame);
+
+        // Smooth continuous rotation
+        coreMesh.rotation.y += 0.004;
+        coreMesh.rotation.x += 0.002;
+        ringMesh.rotation.z += 0.003;
+        ringMesh2.rotation.x += 0.002;
+        particleSystem.rotation.y -= 0.0008;
+
+        // Smooth lerp to mouse coordinates
+        mainGroup.rotation.y += (mouseX + targetY - mainGroup.rotation.y) * 0.05;
+        mainGroup.rotation.x += (mouseY + targetX - mainGroup.rotation.x) * 0.05;
+
+        renderer.render(scene, camera);
+      }
+      renderFrame();
+    })();
+
+    /* ==========================================================
+       2. GSAP & ScrollTrigger Animations
+       ========================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Set current year
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // GSAP Hero Entrance
+      if (typeof gsap !== 'undefined') {
+        gsap.from('.hero-reveal', {
+          opacity: 0,
+          y: 30,
+          duration: 0.9,
+          stagger: 0.15,
+          ease: 'power3.out'
+        });
+
+        // Register ScrollTrigger if available
+        if (typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Animate stat counters on scroll
+          const counters = document.querySelectorAll('.counter');
+          counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+              innerHTML: target,
+              duration: 2,
+              ease: 'power2.out',
+              snap: { innerHTML: 1 },
+              scrollTrigger: {
+                trigger: counter,
+                start: 'top 85%',
+                once: true
+              }
+            });
+          });
+
+          // Staggered Project Cards Entrance
+          gsap.from('.project-card', {
+            opacity: 0,
+            y: 40,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '#projectsGrid',
+              start: 'top 80%',
+              once: true
+            }
+          });
+        }
+      }
     });
-    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ==========================================================
+       3. Scroll Progress Bar Fallback (Modern Web Guidance)
+       ========================================================== */
+    if (!CSS.supports('animation-timeline', 'scroll()')) {
+      const progressBar = document.getElementById('scrollProgress');
+      if (progressBar) {
+        window.addEventListener('scroll', () => {
+          const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+          const scrolled = window.scrollY;
+          const ratio = scrollable > 0 ? (scrolled / scrollable) : 0;
+          progressBar.style.transform = `scaleX(${ratio})`;
+        }, { passive: true });
+      }
+    }
+
+    /* ==========================================================
+       4. Interactive Project Filter & Live Search
+       ========================================================== */
+    (function initProjectFilters() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const searchInput = document.getElementById('projectSearchInput');
+      const projectCards = document.querySelectorAll('.project-card');
+
+      let currentCategory = 'all';
+      let currentQuery = '';
+
+      function filterProjects() {
+        projectCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          const cardText = card.textContent.toLowerCase();
+
+          const matchesCategory = (currentCategory === 'all' || cardCategory === currentCategory);
+          const matchesQuery = (!currentQuery || cardText.includes(currentQuery));
+
+          if (matchesCategory && matchesQuery) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
+            b.classList.add('text-slate-600');
+          });
+          btn.classList.add('bg-white', 'text-slate-900', 'shadow-xs');
+          btn.classList.remove('text-slate-600');
+
+          currentCategory = btn.getAttribute('data-filter');
+          filterProjects();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value.toLowerCase().trim();
+          filterProjects();
+        });
+      }
+    })();
+
+    /* ==========================================================
+       5. Copy Email & Quick Form Mailto Actions
+       ========================================================== */
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    if (copyEmailBtn) {
+      copyEmailBtn.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText('devallasrinivas14@gmail.com').then(() => {
+            const original = copyEmailBtn.innerHTML;
+            copyEmailBtn.innerHTML = '<span>Email Copied! ✓</span>';
+            copyEmailBtn.classList.add('bg-emerald-700');
+            setTimeout(() => {
+              copyEmailBtn.innerHTML = original;
+              copyEmailBtn.classList.remove('bg-emerald-700');
+            }, 2000);
+          });
+        }
+      });
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = encodeURIComponent(document.getElementById('formName').value);
+        const subject = encodeURIComponent(document.getElementById('formSubject').value);
+        const msg = encodeURIComponent(document.getElementById('formMessage').value);
+        window.location.href = `mailto:devallasrinivas14@gmail.com?subject=${subject}&body=Hi Srinivas,%0A%0A${msg}%0A%0ABest regards,%0A${name}`;
+      });
+    }
   </script>
 </body>
 </html>
