@@ -269,42 +269,53 @@
 
         </div>
 
-        <!-- Right Column: Interactive 3D WebGL Console Card (5 cols) -->
+        <!-- Right Column: Interactive 3D Avatar Card (5 cols) -->
         <div class="lg:col-span-5">
-          <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-2xl relative">
+          <div class="glass-panel p-4 sm:p-5 rounded-3xl border border-slate-800 shadow-2xl relative">
             
-            <!-- Terminal Header -->
+            <!-- Header -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-800/80 text-xs">
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-                <span class="font-mono text-cyan-400 font-bold">3D Neural Constellation</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="font-mono text-cyan-400 font-bold">Interactive 3D Avatar</span>
               </div>
-              <span class="text-[11px] font-mono text-slate-400">Interactive WebGL Avatar</span>
+              <span class="text-[11px] font-mono text-slate-400">Devalla Srinivas</span>
             </div>
 
-            <!-- Canvas Viewport -->
-            <div class="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden mt-3 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center border border-slate-800/60">
-              <canvas id="threeHeroCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+            <!-- Canvas Viewport: Sleek, high-contrast, perfectly framed container -->
+            <div class="relative w-full h-[380px] sm:h-[430px] md:h-[460px] rounded-2xl overflow-hidden mt-3.5 bg-gradient-to-b from-slate-950 via-slate-900/90 to-slate-950 flex items-center justify-center border border-slate-800/80 shadow-inner">
+              
+              <!-- Soft studio floor ambiance -->
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-cyan-950/20 via-transparent to-transparent pointer-events-none"></div>
+
+              <canvas id="threeHeroCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing relative z-10"></canvas>
               
               <!-- Bottom Interaction Floating Tag -->
-              <div class="absolute bottom-3 left-3 bg-slate-950/85 backdrop-blur-md border border-slate-700/60 rounded-lg px-2.5 py-1 text-[11px] text-slate-300 flex items-center gap-2 pointer-events-none">
+              <div class="absolute bottom-3.5 left-3.5 z-20 bg-slate-950/85 backdrop-blur-md border border-slate-700/60 rounded-xl px-3 py-1.5 text-[11px] text-slate-300 flex items-center gap-2 pointer-events-none shadow-lg">
                 <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
-                <span>Click & drag to rotate 3D avatar & nodes</span>
+                <span>Drag horizontally to rotate 360°</span>
+              </div>
+
+              <!-- Top-Right 3D Pill -->
+              <div class="absolute top-3.5 right-3.5 z-20 bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg px-2.5 py-1 text-[10px] font-mono text-slate-400 pointer-events-none">
+                <span class="text-emerald-400 font-bold">●</span> 3D WebGL
               </div>
             </div>
 
-            <!-- Interactive Controls -->
-            <div class="mt-3.5 grid grid-cols-2 gap-2 text-xs">
-              <button id="toggleWireframeBtn" class="py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/60 transition-colors flex items-center justify-center gap-1.5">
-                <span>Toggle Wireframe</span>
+            <!-- Clean Interactive Controls -->
+            <div class="mt-3.5 grid grid-cols-2 gap-2.5 text-xs">
+              <button id="toggleAutoRotateBtn" class="py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-mono text-[11px] border border-slate-700/60 transition-all flex items-center justify-center gap-2 group">
+                <span id="rotateStatusDot" class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                <span id="rotateBtnLabel">Auto-Rotate: ON</span>
               </button>
-              <button id="switchColorBtn" class="py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/60 transition-colors flex items-center justify-center gap-1.5">
-                <span>Cycle Neon Colors</span>
+              <button id="resetViewBtn" class="py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-mono text-[11px] border border-slate-700/60 transition-all flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <span>Reset View ↺</span>
               </button>
             </div>
 
-            <div class="mt-3 p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
-              <span>Scene · Camera · Orbit · Lighting</span>
+            <div class="mt-3 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+              <span>Pure 3D Photo · Stable Turntable</span>
               <span class="text-emerald-400 font-semibold">60 FPS</span>
             </div>
 
@@ -1268,16 +1279,17 @@
   <!-- Scripts: Interactive 3D Canvas, Filter Logic, and Fallbacks -->
   <script>
     /* ==========================================================
-       1. Dedicated Three.js 3D WebGL Neural Avatar Constellation
+       1. Dedicated Three.js Stable 3D Photo Avatar (Pure Photo Turntable)
        ========================================================== */
     (function initThreeScene() {
       const canvas = document.getElementById('threeHeroCanvas');
       if (!canvas || typeof THREE === 'undefined') return;
 
       const scene = new THREE.Scene();
-      
-      const camera = new THREE.PerspectiveCamera(46, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-      camera.position.set(0, 0, 4.4);
+
+      // Camera positioned to frame the photo avatar with optimal vertical and horizontal fit
+      const camera = new THREE.PerspectiveCamera(40, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.set(0, 0, 3.8);
 
       const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
@@ -1288,58 +1300,42 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
 
-      // Core Group for mouse-drag & inertia rotation
-      const mainGroup = new THREE.Group();
-      scene.add(mainGroup);
+      // Dedicated Photo Group - strictly only the photo, zero extra lines or geometries
+      const photoGroup = new THREE.Group();
+      photoGroup.position.set(0, -0.02, 0); // Grounded optical center, rock solid & stable
+      scene.add(photoGroup);
 
-      // Helper function: Dynamic radial glow texture for the holographic avatar backlight
-      function createGlowTexture(colorStart, colorMid) {
-        const glowCanvas = document.createElement('canvas');
-        glowCanvas.width = 256;
-        glowCanvas.height = 256;
-        const ctx = glowCanvas.getContext('2d');
-        const grad = ctx.createRadialGradient(128, 128, 25, 128, 128, 128);
-        grad.addColorStop(0, colorStart || 'rgba(34, 211, 238, 0.45)');
-        grad.addColorStop(0.55, colorMid || 'rgba(99, 102, 241, 0.22)');
-        grad.addColorStop(1, 'rgba(6, 9, 17, 0)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 256, 256);
-        return new THREE.CanvasTexture(glowCanvas);
-      }
+      // Aspect ratio of user photo: 382 x 539 -> 0.7087
+      const photoHeight = 2.44;
+      const photoWidth = photoHeight * (382 / 539); // ~1.729
+      const photoGeom = new THREE.PlaneGeometry(photoWidth, photoHeight);
 
-      // 1. Srinivas's Transparent Avatar Cutout (Dual-sided so it faces front in full 360° rotation)
-      const avatarHolder = new THREE.Group();
-      mainGroup.add(avatarHolder);
-
-      // Aspect ratio: width 382, height 539 -> 1.913 x 2.7
-      const avatarGeom = new THREE.PlaneGeometry(1.913, 2.7);
       const avatarSrc = (window.SRINIVAS_AVATAR_B64) ? window.SRINIVAS_AVATAR_B64 : './assets/srinivas_avatar.png';
-
       const textureLoader = new THREE.TextureLoader();
 
       // Front Face
       const textureFront = textureLoader.load(avatarSrc, () => {
         renderer.render(scene, camera);
       });
-      textureFront.generateMipmaps = false;
-      textureFront.minFilter = THREE.LinearFilter;
+      textureFront.generateMipmaps = true;
+      textureFront.minFilter = THREE.LinearMipmapLinearFilter;
       textureFront.magFilter = THREE.LinearFilter;
 
       const frontMat = new THREE.MeshBasicMaterial({
         map: textureFront,
         transparent: true,
-        alphaTest: 0.03,
+        alphaTest: 0.015,
         depthWrite: false,
         side: THREE.FrontSide
       });
-      const frontMesh = new THREE.Mesh(avatarGeom, frontMat);
-      frontMesh.position.z = 0.015;
-      avatarHolder.add(frontMesh);
+      const frontMesh = new THREE.Mesh(photoGeom, frontMat);
+      frontMesh.position.z = 0.005;
+      photoGroup.add(frontMesh);
 
-      // Back Face (Mirrored texture so as it rotates 180°, it still appears naturally forward-facing)
+      // Back Face - Horizontally flipped UVs so Srinivas looks natural & forward-facing from all 360°
       const textureBack = textureLoader.load(avatarSrc);
-      textureBack.generateMipmaps = false;
-      textureBack.minFilter = THREE.LinearFilter;
+      textureBack.generateMipmaps = true;
+      textureBack.minFilter = THREE.LinearMipmapLinearFilter;
       textureBack.magFilter = THREE.LinearFilter;
       textureBack.repeat.set(-1, 1);
       textureBack.offset.set(1, 0);
@@ -1347,87 +1343,23 @@
       const backMat = new THREE.MeshBasicMaterial({
         map: textureBack,
         transparent: true,
-        alphaTest: 0.03,
+        alphaTest: 0.015,
         depthWrite: false,
         side: THREE.FrontSide
       });
-      const backMesh = new THREE.Mesh(avatarGeom, backMat);
+      const backMesh = new THREE.Mesh(photoGeom, backMat);
       backMesh.rotation.y = Math.PI;
-      backMesh.position.z = -0.015;
-      avatarHolder.add(backMesh);
+      backMesh.position.z = -0.005;
+      photoGroup.add(backMesh);
 
-      // 2. Holographic Backing Cyber Halo
-      const auraGeom = new THREE.CircleGeometry(1.45, 64);
-      let auraTexture = createGlowTexture('rgba(34, 211, 238, 0.45)', 'rgba(99, 102, 241, 0.22)');
-      const auraMat = new THREE.MeshBasicMaterial({
-        map: auraTexture,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        side: THREE.DoubleSide
-      });
-      const auraMesh = new THREE.Mesh(auraGeom, auraMat);
-      auraMesh.position.z = 0;
-      avatarHolder.add(auraMesh);
-
-      // 3. Concentric Holographic Gyro / Orbital Rings
-      const ringGeom1 = new THREE.TorusGeometry(1.72, 0.02, 16, 100);
-      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x22d3ee, wireframe: true });
-      const ringMesh1 = new THREE.Mesh(ringGeom1, ringMat1);
-      ringMesh1.rotation.x = Math.PI / 3;
-      ringMesh1.rotation.z = Math.PI / 6;
-      mainGroup.add(ringMesh1);
-
-      const ringGeom2 = new THREE.TorusGeometry(2.05, 0.016, 16, 100);
-      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true });
-      const ringMesh2 = new THREE.Mesh(ringGeom2, ringMat2);
-      ringMesh2.rotation.y = Math.PI / 3;
-      ringMesh2.rotation.x = -Math.PI / 4;
-      mainGroup.add(ringMesh2);
-
-      const ringGeom3 = new THREE.TorusGeometry(1.4, 0.012, 16, 80);
-      const ringMat3 = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
-      const ringMesh3 = new THREE.Mesh(ringGeom3, ringMat3);
-      ringMesh3.rotation.x = Math.PI / 2;
-      mainGroup.add(ringMesh3);
-
-      // 4. Futuristic Holographic Outer Cage (Toggleable Wireframe)
-      const cageGeom = new THREE.IcosahedronGeometry(2.32, 1);
-      let wireframeState = false;
-      const cageMat = new THREE.MeshBasicMaterial({
-        color: 0x38bdf8,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.35,
-        visible: wireframeState
-      });
-      const cageMesh = new THREE.Mesh(cageGeom, cageMat);
-      mainGroup.add(cageMesh);
-
-      // 5. Floating Surrounding Neural Constellation Particles
-      const particleCount = 130;
-      const particleGeom = new THREE.BufferGeometry();
-      const pos = new Float32Array(particleCount * 3);
-      for (let i = 0; i < particleCount * 3; i += 3) {
-        pos[i] = (Math.random() - 0.5) * 6.5;
-        pos[i + 1] = (Math.random() - 0.5) * 6.5;
-        pos[i + 2] = (Math.random() - 0.5) * 4.5;
-      }
-      particleGeom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      const particleMat = new THREE.PointsMaterial({
-        color: 0x38bdf8,
-        size: 0.045,
-        transparent: true,
-        opacity: 0.75
-      });
-      const particles = new THREE.Points(particleGeom, particleMat);
-      mainGroup.add(particles);
-
-      // 6. Mouse & Touch Drag Rotation with Inertia
+      // Turntable State Variables
+      let autoRotate = true;
       let isDragging = false;
       let prevMouse = { x: 0, y: 0 };
-      let targetRot = { x: 0, y: 0 };
+      let targetRotY = 0;
+      let targetRotX = 0;
 
+      // Mouse Drag Interaction
       canvas.addEventListener('mousedown', (e) => {
         isDragging = true;
         prevMouse = { x: e.clientX, y: e.clientY };
@@ -1437,8 +1369,10 @@
         if (!isDragging) return;
         const dx = e.clientX - prevMouse.x;
         const dy = e.clientY - prevMouse.y;
-        targetRot.y += dx * 0.008;
-        targetRot.x += dy * 0.008;
+        targetRotY += dx * 0.009;
+        // Subtle vertical tilt strictly clamped to prevent flipping or disorienting angles
+        targetRotX += dy * 0.004;
+        targetRotX = Math.max(-0.14, Math.min(0.14, targetRotX));
         prevMouse = { x: e.clientX, y: e.clientY };
       });
 
@@ -1454,85 +1388,76 @@
         if (!isDragging || e.touches.length !== 1) return;
         const dx = e.touches[0].clientX - prevMouse.x;
         const dy = e.touches[0].clientY - prevMouse.y;
-        targetRot.y += dx * 0.008;
-        targetRot.x += dy * 0.008;
+        targetRotY += dx * 0.009;
+        targetRotX += dy * 0.004;
+        targetRotX = Math.max(-0.14, Math.min(0.14, targetRotX));
         prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       }, { passive: true });
 
-      // 7. Interactive Buttons
-      const toggleWireframeBtn = document.getElementById('toggleWireframeBtn');
-      if (toggleWireframeBtn) {
-        toggleWireframeBtn.addEventListener('click', () => {
-          wireframeState = !wireframeState;
-          cageMat.visible = wireframeState;
-          toggleWireframeBtn.classList.toggle('text-cyan-400', wireframeState);
-          toggleWireframeBtn.classList.toggle('border-cyan-500/50', wireframeState);
+      // Clean Interactive Controls: Auto-Rotate Toggle & Reset View
+      const toggleAutoRotateBtn = document.getElementById('toggleAutoRotateBtn');
+      const rotateStatusDot = document.getElementById('rotateStatusDot');
+      const rotateBtnLabel = document.getElementById('rotateBtnLabel');
+
+      if (toggleAutoRotateBtn) {
+        toggleAutoRotateBtn.addEventListener('click', () => {
+          autoRotate = !autoRotate;
+          if (rotateStatusDot && rotateBtnLabel) {
+            if (autoRotate) {
+              rotateStatusDot.className = 'w-2 h-2 rounded-full bg-cyan-400';
+              rotateBtnLabel.textContent = 'Auto-Rotate: ON';
+              toggleAutoRotateBtn.classList.remove('opacity-75');
+            } else {
+              rotateStatusDot.className = 'w-2 h-2 rounded-full bg-slate-500';
+              rotateBtnLabel.textContent = 'Auto-Rotate: PAUSED';
+              toggleAutoRotateBtn.classList.add('opacity-75');
+            }
+          }
         });
       }
 
-      const switchColorBtn = document.getElementById('switchColorBtn');
-      const neonPalettes = [
-        { primary: 0x22d3ee, secondary: 0x818cf8, start: 'rgba(34, 211, 238, 0.45)', mid: 'rgba(99, 102, 241, 0.22)' },
-        { primary: 0xa855f7, secondary: 0xec4899, start: 'rgba(168, 85, 247, 0.45)', mid: 'rgba(236, 72, 153, 0.22)' },
-        { primary: 0x10b981, secondary: 0x06b6d4, start: 'rgba(16, 185, 129, 0.45)', mid: 'rgba(6, 182, 212, 0.22)' },
-        { primary: 0xf59e0b, secondary: 0xef4444, start: 'rgba(245, 158, 11, 0.45)', mid: 'rgba(239, 68, 68, 0.22)' },
-        { primary: 0x38bdf8, secondary: 0x6366f1, start: 'rgba(56, 189, 248, 0.45)', mid: 'rgba(99, 102, 241, 0.22)' }
-      ];
-      let colorIdx = 0;
-      if (switchColorBtn) {
-        switchColorBtn.addEventListener('click', () => {
-          colorIdx = (colorIdx + 1) % neonPalettes.length;
-          const p = neonPalettes[colorIdx];
-          ringMat1.color.setHex(p.primary);
-          ringMat2.color.setHex(p.secondary);
-          ringMat3.color.setHex(p.primary);
-          particleMat.color.setHex(p.primary);
-          cageMat.color.setHex(p.secondary);
-          
-          auraTexture = createGlowTexture(p.start, p.mid);
-          auraMat.map = auraTexture;
-          auraMat.needsUpdate = true;
+      const resetViewBtn = document.getElementById('resetViewBtn');
+      if (resetViewBtn) {
+        resetViewBtn.addEventListener('click', () => {
+          targetRotY = 0;
+          targetRotX = 0;
         });
       }
 
-      // 8. Responsive Canvas Resize
+      // Responsive Canvas & Camera Sizing - Guarantees photo always fits without clipping
       function handleResize() {
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
         if (canvas.width !== width || canvas.height !== height) {
           renderer.setSize(width, height, false);
           camera.aspect = width / height;
+
+          // If container is narrower than photo aspect ratio, pull camera back slightly to ensure perfect fit
+          const idealAspect = photoWidth / photoHeight; // ~0.708
+          if (camera.aspect < idealAspect) {
+            camera.position.z = 3.8 * (idealAspect / camera.aspect);
+          } else {
+            camera.position.z = 3.8;
+          }
           camera.updateProjectionMatrix();
         }
       }
       window.addEventListener('resize', handleResize);
+      handleResize(); // Initial pass to guarantee tight bounds
 
-      // 9. 60 FPS Render & Animation Loop
-      let clock = new THREE.Clock();
+      // 60 FPS Smooth Turntable Render Loop
       function animate() {
         requestAnimationFrame(animate);
-        const elapsed = clock.getElapsedTime();
 
-        // Smooth idle rotation & gentle floating breath
-        avatarHolder.rotation.y += 0.007;
-        avatarHolder.position.y = Math.sin(elapsed * 1.5) * 0.06;
-
-        // Orbital gyro rings rotation
-        ringMesh1.rotation.z += 0.008;
-        ringMesh2.rotation.x += 0.006;
-        ringMesh3.rotation.z -= 0.005;
-
-        // Constellation particles drift
-        particles.rotation.y -= 0.001;
-
-        if (wireframeState) {
-          cageMesh.rotation.y += 0.003;
-          cageMesh.rotation.x += 0.002;
+        // Continuous smooth auto-rotation if enabled and user is not manually dragging
+        if (autoRotate && !isDragging) {
+          targetRotY += 0.006;
         }
 
-        // Inertia damping from mouse/touch interaction
-        mainGroup.rotation.x += (targetRot.x - mainGroup.rotation.x) * 0.08;
-        mainGroup.rotation.y += (targetRot.y - mainGroup.rotation.y) * 0.08;
+        // Smooth damping with zero wobble or drifting (100% stable)
+        photoGroup.rotation.y += (targetRotY - photoGroup.rotation.y) * 0.09;
+        photoGroup.rotation.x += (targetRotX - photoGroup.rotation.x) * 0.09;
+        photoGroup.rotation.z = 0; // Strict zero roll
 
         renderer.render(scene, camera);
       }
