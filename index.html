@@ -1168,9 +1168,9 @@
       avatarPhotoGroup.position.set(0, -0.05, 0);
       scene.add(avatarPhotoGroup);
 
-      // Aspect ratio of Srinivas cutout: 382 x 539 -> ~0.7087
-      const photoHeight = 2.45;
-      const photoWidth = photoHeight * (382 / 539); // ~1.736
+      // Aspect ratio of Srinivas cutout: 348 x 629 -> ~0.553
+      const photoHeight = 2.48;
+      const photoWidth = photoHeight * (348 / 629); // ~1.372
       const photoGeom = new THREE.PlaneGeometry(photoWidth, photoHeight);
 
       const avatarSrc = (window.SRINIVAS_AVATAR_B64) ? window.SRINIVAS_AVATAR_B64 : './assets/srinivas_avatar.png';
